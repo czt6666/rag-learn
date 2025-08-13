@@ -15,5 +15,6 @@ print(embeddings.shape)
 #     print(i)
 #     print("===========")
 
-similarities = model.similarity(embeddings, embeddings)
+word_embeddings = model.encode(["love","sun","I"])
+similarities = model.similarity(word_embeddings, embeddings)
 print(similarities)

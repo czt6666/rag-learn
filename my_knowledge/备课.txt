@@ -1,1 +1,7 @@
-==备课==
+备课RAG课程笔记  
+今天我整理了RAG（Retrieval-Augmented Generation）课程的核心知识点：  
+- RAG由检索器（Retriever）和生成器（Generator）组成。  
+- 检索器常用向量数据库（如FAISS、Milvus）存储文本向量，支持相似度检索。  
+- 生成器通常是大语言模型（如LLM），将检索到的上下文作为提示词增强回答准确性。  
+- 常见优化包括分块（chunking）、向量归一化、检索重排序（Rerank）。  
+- 应用场景：知识问答、企业文档搜索、法律法规查询等。

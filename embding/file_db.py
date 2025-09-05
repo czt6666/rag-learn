@@ -39,8 +39,9 @@ def txt_2db():
 
 
 if __name__ == '__main__':
-    txt_2db()
-    query = ["工作内容是什么"]
+    # txt_2db()
+    query = ["无人机能飞多久"]
     query_embeddings = model.encode(query)
     data = collection.query(query_embeddings.tolist(), n_results=2)
-    print(data)
+    # print(data)
+    [print(text) for text in data['documents'][0]]

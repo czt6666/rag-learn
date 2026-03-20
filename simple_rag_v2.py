@@ -4,7 +4,7 @@ from openai import OpenAI
 from pathlib import Path
 
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("DEEPSEEK_API_KEY")
 client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
 
@@ -20,6 +20,7 @@ def retrieval(query):
 
     return context
 
+
 # print(retrieval("无人机有什么"))
 
 # 增强 Query
@@ -34,11 +35,12 @@ def augmented(query, context=""):
 {query}
 """
 
+
 query = "无人机型号是什么"
 print(augmented(query, retrieval(query)))
 
-# 生成回答
 
+# 生成回答
 
 
 def generation(prompt):
@@ -52,5 +54,6 @@ def generation(prompt):
     )
 
     return response.choices[0].message.content
+
 
 print(generation(augmented(query, retrieval(query))))

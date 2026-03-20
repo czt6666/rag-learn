@@ -12,7 +12,7 @@ from langchain_openai import ChatOpenAI
 from langchain_chroma import Chroma
 
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("DEEPSEEK_API_KEY")
 
 # 1 set llm
 llm = ChatOpenAI(model="deepseek-v3", api_key=api_key)
@@ -41,11 +41,11 @@ prompt_template = PromptTemplate.from_template("""
 
 # 5 set chain
 chain = (
-    {"question": RunnablePassthrough()}
-    | RunnablePassthrough.assign(context=itemgetter("question") | retriever)
-    | prompt_template
-    | llm
-    | StrOutputParser()
+        {"question": RunnablePassthrough()}
+        | RunnablePassthrough.assign(context=itemgetter("question") | retriever)
+        | prompt_template
+        | llm
+        | StrOutputParser()
 )
 
 print(chain.invoke("能飞多久"))

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- ================= 根元素 ================= -->
+    <xs:element name="document">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+                <xs:element name="body" type="BodyType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ================= 文档主体 ================= -->
+    <xs:complexType name="BodyType">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:choice>
+                <xs:element name="section" type="SectionType"/>
+                <xs:element name="p" type="InlineType"/>
+                <xs:element name="list" type="ListType"/>
+                <xs:element name="codeblock" type="CodeBlockType"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ================= 标题 ================= -->
+    <xs:complexType name="SectionType">
+        <xs:sequence>
+            <xs:element name="heading" type="InlineType"/>
+            <xs:element name="content" type="BodyType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="level" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="1"/>
+                    <xs:maxInclusive value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <!-- ================= 行内元素 ================= -->
+    <xs:complexType name="InlineType" mixed="true">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="strong" type="InlineType"/>
+            <xs:element name="em" type="InlineType"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="link" type="LinkType"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <!-- ================= 链接 ================= -->
+    <xs:complexType name="LinkType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="href" type="xs:anyURI" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- ================= 列表 ================= -->
+    <xs:complexType name="ListType">
+        <xs:sequence>
+            <xs:element name="item" type="InlineType" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="ordered"/>
+                    <xs:enumeration value="unordered"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <!-- ================= 代码块 ================= -->
+    <xs:complexType name="CodeBlockType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="language" type="xs:string" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+</xs:schema>

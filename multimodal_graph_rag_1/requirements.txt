@@ -1,0 +1,28 @@
+# 核心依赖
+openai>=1.0.0
+anthropic>=0.18.0
+langchain>=0.1.0
+langchain-openai>=0.0.5
+
+# 向量数据库
+chromadb>=0.4.22
+
+# 图数据库
+neo4j>=5.16.0
+
+# 多模态嵌入
+sentence-transformers>=2.3.1
+transformers>=4.36.0
+torch>=2.1.0
+pillow>=10.0.0
+ftfy>=6.1.0
+
+# 数据处理
+pandas>=2.1.0
+numpy>=1.24.0
+tqdm>=4.66.0
+
+# 配置管理
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.0.0

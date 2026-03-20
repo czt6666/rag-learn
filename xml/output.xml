@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="simple-llm-text.xsd">
+
+    <title>基于 XML Schema 的大模型结构化输出示例</title>
+
+    <body>
+
+        <!-- ================= 一级标题 ================= -->
+        <section level="1">
+            <heading>一、研究背景</heading>
+            <content>
+                <p>
+                    随着 <strong>大语言模型</strong> 的快速发展，
+                    如何对模型输出进行
+                    <em>结构化约束</em>
+                    成为了一个重要问题。
+                </p>
+
+                <p>
+                    传统的
+                    <code>Markdown</code>
+                    格式虽然便于人类阅读，
+                    但在
+                    <em>自动校验</em>
+                    与
+                    <em>程序解析</em>
+                    方面存在明显不足。
+                </p>
+            </content>
+        </section>
+
+        <!-- ================= 一级标题 ================= -->
+        <section level="1">
+            <heading>二、XML Schema 的基本思想</heading>
+            <content>
+
+                <p>
+                    <strong>XML Schema</strong>
+                    通过显式定义文档的
+                    结构、顺序与取值范围，
+                    为 XML 文档提供了一种
+                    <em>强约束机制</em>。
+                </p>
+
+                <list type="unordered">
+                    <item>明确规定可出现的元素类型</item>
+                    <item>限制元素出现的顺序与层级</item>
+                    <item>约束属性的取值范围</item>
+                </list>
+
+                <p>
+                    因此，XML Schema 非常适合作为
+                    <em>大模型输出的中间表示格式</em>。
+                </p>
+
+            </content>
+        </section>
+
+        <!-- ================= 二级标题 ================= -->
+        <section level="2">
+            <heading>2.1 行内语法的建模</heading>
+            <content>
+
+                <p>
+                    在本文设计的 Schema 中，
+                    行内结构通过
+                    <strong>mixed 内容模型</strong>
+                    实现，
+                    允许文本与
+                    <em>强调元素</em>
+                    交替出现。
+                </p>
+
+                <p>
+                    例如，可以在同一段落中同时包含
+                    <strong>加粗文本</strong>、
+                    <em>斜体文本</em>
+                    以及
+                    <code>行内代码</code>，
+                    其表达能力与 Markdown 基本等价。
+                </p>
+
+            </content>
+        </section>
+
+        <!-- ================= 二级标题 ================= -->
+        <section level="2">
+            <heading>2.2 列表结构的约束</heading>
+            <content>
+
+                <p>
+                    列表通过
+                    <code>list</code>
+                    元素表示，
+                    并使用
+                    <strong>枚举类型</strong>
+                    对其属性进行限制。
+                </p>
+
+                <list type="ordered">
+                    <item>首先定义列表类型</item>
+                    <item>然后约束子项的数量</item>
+                    <item>最后限制取值的合法范围</item>
+                </list>
+
+            </content>
+        </section>
+
+        <!-- ================= 一级标题 ================= -->
+        <section level="1">
+            <heading>三、代码块示例</heading>
+            <content>
+
+                <p>
+                    XML Schema 允许对
+                    <em>代码块</em>
+                    进行单独建模，
+                    并通过属性标注其语言类型。
+                </p>
+
+                <codeblock language="python">
+def validate_xml(schema_path, xml_path):
+    from lxml import etree
+    schema = etree.XMLSchema(etree.parse(schema_path))
+    xml = etree.parse(xml_path)
+    schema.assertValid(xml)
+    return True
+                </codeblock>
+
+                <p>
+                    上述代码展示了如何在
+                    <strong>Python</strong>
+                    环境中使用
+                    <code>lxml</code>
+                    对 XML 文档进行校验。
+                </p>
+
+            </content>
+        </section>
+
+        <!-- ================= 一级标题 ================= -->
+        <section level="1">
+            <heading>四、总结</heading>
+            <content>
+
+                <p>
+                    通过本示例可以看出，
+                    基于 XML Schema 的文本格式
+                    在结构清晰性、
+                    可验证性以及
+                    自动处理能力方面
+                    均优于传统 Markdown。
+                </p>
+
+                <p>
+                    对于需要
+                    <em>高可靠输出</em>
+                    的大模型应用场景，
+                    该方法具有良好的实践价值。
+                </p>
+
+            </content>
+        </section>
+
+    </body>
+
+</document>

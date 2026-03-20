@@ -12,7 +12,6 @@ import numpy as np
 from typing import List, Dict, Optional, Union
 import os
 
-
 class RAGPipeline:
     """RAG基础功能Pipeline"""
 
@@ -367,101 +366,6 @@ class RAGPipeline:
     def delete_collection(self, collection_name: str):
         """删除集合"""
         self.db.delete_collection(collection_name)
-
-
-# ============= 使用示例 =============
-
-def example_basic_usage():
-    """基础使用示例"""
-    pipeline = RAGPipeline()
-
-    # 1. 读取文件
-    text = pipeline.read_file("document.txt")
-
-    # 2. 处理并存储
-    result = pipeline.embed_and_store(
-        texts=text,
-        collection_name="my_docs",
-        split_strategy='sentence',
-        metadatas={'source': 'document.txt'}
-    )
-    print(f"存储了 {result['num_texts']} 个文本块")
-
-    # 3. 搜索
-    results = pipeline.search(
-        query="如何使用这个系统",
-        collection_name="my_docs",
-        top_k=5
-    )
-
-    # 4. 输出结果
-    pipeline.print_results(results, query="如何使用这个系统")
-
-
-def example_batch_files():
-    """批量文件处理示例"""
-    pipeline = RAGPipeline()
-
-    # 读取目录下所有文档
-    docs = pipeline.read_directory(
-        dir_path="./documents",
-        extensions=['.txt', '.pdf', '.docx'],
-        recursive=True,
-        return_dict=True
-    )
-
-    # 批量处理
-    for filename, content in docs.items():
-        pipeline.embed_and_store(
-            texts=content,
-            collection_name="all_docs",
-            split_strategy='n_sentence',
-            split_params={'n': 3},
-            metadatas={'filename': filename}
-        )
-
-    print(f"处理完成，集合信息: {pipeline.get_collection_info('all_docs')}")
-
-
-def example_strategy_comparison():
-    """策略对比测试示例"""
-    pipeline = RAGPipeline()
-
-    # 读取文档
-    text = pipeline.read_file("test.txt")
-
-    # 测试不同策略
-    strategies = [
-        ('sentence', {}),
-        ('n_sentence_2', {'n': 2}),
-        ('n_sentence_3', {'n': 3}),
-        ('fixed_200', {'chunk_size': 200, 'overlap': 50})
-    ]
-
-    query = "测试查询"
-
-    print("\n策略对比测试")
-    print("=" * 70)
-
-    for name, params in strategies:
-        # 确定策略类型
-        strategy = params.pop('strategy', name.split('_')[0] if '_' in name else name)
-
-        # 存储
-        collection_name = f"test_{name}"
-        result = pipeline.embed_and_store(
-            texts=text,
-            collection_name=collection_name,
-            split_strategy=strategy,
-            split_params=params
-        )
-
-        # 搜索
-        results = pipeline.search(query, collection_name, top_k=3)
-
-        # 输出
-        print(f"\n[{name}] 块数: {result['num_texts']}, Top-1相似度: {results[0]['similarity']:.4f}")
-        print(f"  {results[0]['text'][:60]}...")
 
 
 def main():

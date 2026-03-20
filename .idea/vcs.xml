@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/multimodal_graph_rag_2/data/MRAMG-Bench" vcs="Git" />
   </component>
 </project>
